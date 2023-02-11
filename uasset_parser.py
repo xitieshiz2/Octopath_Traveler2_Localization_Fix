@@ -18,20 +18,37 @@ from pandas import DataFrame
 ROOT_FOLDER = os.path.dirname(__file__)
 SOURCE_FOLDER = os.path.join(ROOT_FOLDER, 'Text\\Database\\')
 TEXT_EXCEL_PATH = os.path.join(ROOT_FOLDER, 'Excel', 'GameTextZH_CN.xlsx')
-TALK_EXCEL_PATH = os.path.join(ROOT_FOLDER, 'Excel', 'TalkData_ZH_CH.xlsx')
+TALK_EXCEL_PATH = os.path.join(ROOT_FOLDER, 'Excel', 'TalkData_ZH_CN.xlsx')
+TEXT_ITEM_INFO_EXCEL_PATH = os.path.join(ROOT_FOLDER, 'Excel', 'GameTextItemInfo_ZH_CN.xlsx')
+TEXT_CHARACTER_INFO_EXCEL_PATH = os.path.join(ROOT_FOLDER, 'Excel', 'GameTextCharacterInfo_ZH_CN')
+TEXT_NARRATION_TABLE_EXCEL_PATH = os.path.join(ROOT_FOLDER, 'Excel', 'NarrationTable_zh_cn')
 OUTPUT_FOLDER = os.path.join(ROOT_FOLDER, 'Output\\')
+EXCEL_FOLDER = os.path.join(ROOT_FOLDER, 'Excel\\')
 
 EN_TALK_ASSET_NAME = r'TalkData_EN'
 JA_TALK_ASSET_NAME = r'TalkData_JA'
-CN_TALK_ASSET_NAME = r'TalkData_ZH_CH'
+CN_TALK_ASSET_NAME = r'TalkData_ZH_CN'
 TW_TALK_ASSET_NAME = r'TalkData_ZH_TW'
-WK_TALK_ASSET_NAME = r'TalkData_WK'
 
 EN_TEXT_ASSET_NAME = r'GameTextEN'
 JA_TEXT_ASSET_NAME = r'GameTextJA'
 CN_TEXT_ASSET_NAME = r'GameTextZH_CN'
 TW_TEXT_ASSET_NAME = r'GameTextZH_TW'
-WK_TEXT_ASSET_NAME = r'GameTextWK'
+
+EN_TEXT_ITEM_INFO_ASSET_NAME = r'GameTextItemInfo_EN'
+JA_TEXT_ITEM_INFO_ASSET_NAME = r'GameTextItemInfo'
+CN_TEXT_ITEM_INFO_ASSET_NAME = r'GameTextItemInfo_ZH_CN'
+TW_TEXT_ITEM_INFO_ASSET_NAME = r'GameTextItemInfo_ZH_TW'
+
+EN_TEXT_CHARACTER_INFO_ASSET_NAME = r'GameTextCharacterInfo_EN'
+JA_TEXT_CHARACTER_INFO_ASSET_NAME = r'GameTextCharacterInfo'
+CN_TEXT_CHARACTER_INFO_ASSET_NAME = r'GameTextCharacterInfo_ZH_CN'
+TW_TEXT_CHARACTER_INFO_ASSET_NAME = r'GameTextCharacterInfo_ZH_TW'
+
+EN_NARRATION_TABLE_ASSET_NAME = r'NarrationTable_en'
+JA_NARRATION_TABLE_ASSET_NAME = r'NarrationTable'
+CN_NARRATION_TABLE_ASSET_NAME = r'NarrationTable_zh_cn'
+TW_NARRATION_TABLE_ASSET_NAME = r'NarrationTable_zh_tw'
 
 # Global variables
 # 每次读取翻译文件，这些全局变量都会被清空重写。
@@ -707,8 +724,8 @@ def parse_excel_file(excel_dict, excel_path):
         excel_dict[row_id][row_nid] = row_text
 
 
-def parse_localization_files_to_excel(ja_file_name, en_file_name, cn_file_name, tw_file_name, wk_file_name):
-    en_data, zh_cn_data, zh_tw_data, jp_data, wk_data, cn_talk_speaker_data, cn_name_data = {}, {}, {}, {}, {}, {}, {}
+def parse_localization_files_to_excel(ja_file_name, en_file_name, cn_file_name, tw_file_name):
+    en_data, zh_cn_data, zh_tw_data, jp_data, cn_talk_speaker_data, cn_name_data = {}, {}, {}, {}, {}, {}
     _, jp_data_table = read_localization_file(SOURCE_FOLDER + ja_file_name)
     for row_id, row_num, _, row_text in jp_data_table:
         assert row_id not in jp_data or (row_id in jp_data and row_num not in jp_data[row_id])
@@ -737,12 +754,6 @@ def parse_localization_files_to_excel(ja_file_name, en_file_name, cn_file_name, 
         if row_id not in zh_tw_data:
             zh_tw_data[row_id] = {}
         zh_tw_data[row_id][row_num] = row_text
-        
-    _, wk_data_table = read_localization_file(SOURCE_FOLDER + wk_file_name)
-    for row_id, row_num, _, row_text in wk_data_table:
-        if row_id not in wk_data:
-            wk_data[row_id] = {}
-        wk_data[row_id][row_num] = row_text
 
     if len(cn_talk_speaker_data):
         _, cn_name_data_table = read_localization_file(SOURCE_FOLDER + CN_TEXT_ASSET_NAME)
@@ -755,12 +766,11 @@ def parse_localization_files_to_excel(ja_file_name, en_file_name, cn_file_name, 
     output_dict['ID'], output_dict['NID'] = [], []
     if len(cn_talk_speaker_data):
         output_dict['SPEAKER'] = []
-    output_dict['WIKI'], output_dict['CN'], output_dict['EN'], output_dict['JP'], output_dict['TW'] = [], [], [], [], []
+    output_dict['CN'], output_dict['EN'], output_dict['JP'], output_dict['TW'] = [], [], [], []
     for row_id, row_data in zh_cn_data.items():
         for row_index, row_text in row_data.items():
             output_dict['ID'].append(row_id)
             output_dict['NID'].append(row_index)
-            output_dict['WIKI'].append(wk_data[row_id][row_index] if row_id in wk_data and row_index in wk_data[row_id] else '')
             output_dict['CN'].append(row_text)
             
             if 'SPEAKER' in output_dict:
@@ -777,8 +787,8 @@ def parse_localization_files_to_excel(ja_file_name, en_file_name, cn_file_name, 
             output_dict['TW'].append(zh_tw_data[row_id][row_index] if row_id in zh_tw_data and row_index in zh_tw_data[row_id] else '')
     
     frame_data = DataFrame.from_dict(output_dict)
-    file_name_suffix = datetime.datetime.today().strftime(' %Y-%m-%d %H.%M.%S.xlsx')
-    frame_data.to_excel(OUTPUT_FOLDER + cn_file_name + file_name_suffix, encoding='utf-8')
+    file_name_suffix = datetime.datetime.today().strftime('.xlsx')
+    frame_data.to_excel(EXCEL_FOLDER + cn_file_name + file_name_suffix, encoding='utf-8')
 
 def repack_localization_files_from_excel(excel_path, cn_asset_name):
     global excel_dict
@@ -806,9 +816,9 @@ CURRENT_COMMAND = UNPACK_TALK_FILE
 
 def main():
     if CURRENT_COMMAND == UNPACK_TEXT_FILE:
-        parse_localization_files_to_excel(JA_TEXT_ASSET_NAME, EN_TEXT_ASSET_NAME, CN_TEXT_ASSET_NAME, TW_TEXT_ASSET_NAME, WK_TEXT_ASSET_NAME)
+        parse_localization_files_to_excel(JA_TEXT_ASSET_NAME, EN_TEXT_ASSET_NAME, CN_TEXT_ASSET_NAME, TW_TEXT_ASSET_NAME)
     elif CURRENT_COMMAND == UNPACK_TALK_FILE:
-        parse_localization_files_to_excel(JA_TALK_ASSET_NAME, EN_TALK_ASSET_NAME, CN_TALK_ASSET_NAME, TW_TALK_ASSET_NAME, WK_TALK_ASSET_NAME)
+        parse_localization_files_to_excel(JA_TALK_ASSET_NAME, EN_TALK_ASSET_NAME, CN_TALK_ASSET_NAME, TW_TALK_ASSET_NAME)
     elif CURRENT_COMMAND == REPACK_TEXT_FILE:
         repack_localization_files_from_excel(TEXT_EXCEL_PATH, CN_TEXT_ASSET_NAME)
     elif CURRENT_COMMAND == REPACK_TALK_FILE:

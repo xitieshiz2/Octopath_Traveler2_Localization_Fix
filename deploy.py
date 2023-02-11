@@ -4,7 +4,7 @@ import sys
 
 
 
-TARGET_PATH = r'F:\SteamLibrary\steamapps\common\OCTOPATH TRAVELER\Octopath_Traveler_II_Localization_Fix\UnrealPakSwitch'
+TARGET_PATH = r'F:\Octopath_Traveler2_Localization_Fix\UnrealPakSwitch'
 OCTO_PATH = r'F:\SteamLibrary\steamapps\common\Octopath_Traveler2_DEMO\Octopath_Traveler2\Content\Paks'
 
 def main():

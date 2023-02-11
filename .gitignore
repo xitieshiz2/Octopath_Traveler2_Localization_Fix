@@ -1,19 +1,9 @@
 
-__pycache__/uasset_parser.cpython-39.pyc
 *.log
-*.ufont
-*.ini
-UnrealPakSwitch/UI/Title/Texture_x2/UiTX_Title_logo_CN.uexp
-UnrealPakSwitch/UI/Title/Texture_x2/UiTX_Title_logo_CN.uasset
-UnrealPakSwitch/UI/Title/Texture/UiTX_Title_logo_CN.uexp
-UnrealPakSwitch/UI/Title/Texture/UiTX_Title_logo_CN.uasset
-UnrealPakSwitch/Talk/Database/TalkData_ZH_CH.uexp
-UnrealPakSwitch/Talk/Database/TalkData_ZH_CH.uasset
-UnrealPakSwitch/Octopath_Traveler/Content/Talk/Database/TalkData_ZH_CH.uexp
-UnrealPakSwitch/Octopath_Traveler/Content/Talk/Database/TalkData_ZH_CH.uasset
-UnrealPakSwitch/Octopath_Traveler/Content/GameText/Database/GameTextZH_CN.uexp
-UnrealPakSwitch/Octopath_Traveler/Content/GameText/Database/GameTextZH_CN.uasset
-UnrealPakSwitch/Octopath_Traveler-WindowsNoEditor_1_P.pak
-UnrealPakSwitch/GameText/Database/GameTextZH_CN.uexp
-UnrealPakSwitch/GameText/Database/GameTextZH_CN.uasset
 Excel/~$GameTextZH_CN.xlsx
+Excel/~$TalkData_ZH_CN.xlsx
+UnrealPakSwitch/Engine/*
+*.pyc
+UnrealPakSwitch/Octopath_Traveler2-WindowsNoEditor_cnfix.pak
+*.ufont
+Text/Database/*
