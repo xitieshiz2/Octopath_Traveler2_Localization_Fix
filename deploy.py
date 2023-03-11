@@ -5,7 +5,7 @@ import sys
 
 
 TARGET_PATH = r'F:\Octopath_Traveler2_Localization_Fix\UnrealPakSwitch'
-OCTO_PATH = r'F:\SteamLibrary\steamapps\common\Octopath_Traveler2_DEMO\Octopath_Traveler2\Content\Paks'
+OCTO_PATH = r'F:\SteamLibrary\steamapps\common\Octopath_Traveler2\Octopath_Traveler2\Content\Paks'
 
 def main():
     scriptFolder = os.path.split(__file__)[0]
@@ -21,21 +21,6 @@ def main():
                     shutil.copy2(filePath, outputFolder)
                 elif fileName.startswith('GameTextZH_CN'):
                     outputFolder = os.path.join(TARGET_PATH, r'Octopath_Traveler2\Content\GameText\Database')
-                    if not os.path.exists(outputFolder):
-                        os.makedirs(outputFolder)
-                    shutil.copy2(filePath, outputFolder)
-                elif fileName.startswith('NarrationTable_zh_cn'):
-                    outputFolder = os.path.join(TARGET_PATH, r'Octopath_Traveler2\Content\UserInterface\Narration\Database')
-                    if not os.path.exists(outputFolder):
-                        os.makedirs(outputFolder)
-                    shutil.copy2(filePath, outputFolder)
-                elif fileName.startswith('GameTextCharacterInfo_ZH_CN'):
-                    outputFolder = os.path.join(TARGET_PATH, r'Octopath_Traveler2\Content\Text\Database')
-                    if not os.path.exists(outputFolder):
-                        os.makedirs(outputFolder)
-                    shutil.copy2(filePath, outputFolder)
-                elif fileName.startswith('GameTextItemInfo_ZH_CN'):
-                    outputFolder = os.path.join(TARGET_PATH, r'Octopath_Traveler2\Content\Text\Database')
                     if not os.path.exists(outputFolder):
                         os.makedirs(outputFolder)
                     shutil.copy2(filePath, outputFolder)

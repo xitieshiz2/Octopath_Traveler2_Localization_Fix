@@ -7,3 +7,9 @@ UnrealPakSwitch/Engine/*
 UnrealPakSwitch/Octopath_Traveler2-WindowsNoEditor_cnfix.pak
 *.ufont
 Text/Database/*
+~$专有名词对照表.xlsx
+Json/TalkData_ZH_CN.json
+*.json
+*.json
+*.json
+Json/GameTextZH_CN.json
